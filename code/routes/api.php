@@ -1,8 +1,9 @@
 <?php
 
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
-Route::group(function () {
+Route::controller(ProductController::class)->group(function () {
 
     /* Route para obter informações da API. */
     Route::get('/', function () {
@@ -10,17 +11,17 @@ Route::group(function () {
     });
 
     /* Route para atualização de produtos. */
-    Route::put('/products/{code}', 'ProductController@update');
+    Route::put('/products/{code}', 'update');
 
     /* Route para deletar um produto específico. */
-    Route::delete('/products/{code}', 'ProductController@destroy');
+    Route::delete('/products/{code}', 'destroy');
 
     /* Route para exibir informações de um produto específico. */
-    Route::get('/products/{code}', 'ProductController@show');
+    Route::get('/products/{code}', 'show');
 
     /* Route para listar todos os produtos com paginação. */
-    Route::get('/products', 'ProductController@index');
+    Route::get('/products', 'index');
 
     /* Route para listar todos os produtos com paginação. */
-    Route::get('/products/search/{query}', 'ProductController@index');
+    Route::get('/products/search/{query}', 'index');
 });
