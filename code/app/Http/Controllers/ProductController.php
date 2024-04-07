@@ -40,7 +40,13 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        if (!$product) {
+            return response()->json(['message' => 'Produto não encontrado'], 404);
+        }
+
+        $product->update($request->all());
+
+        return response()->json($product);
     }
 
     /**
