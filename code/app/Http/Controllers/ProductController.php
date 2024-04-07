@@ -16,17 +16,9 @@ class ProductController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Search the specified resource from storage.
      */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function search(Request $request)
     {
         //
     }
@@ -36,15 +28,11 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        //
-    }
+        if (!$product) {
+            return response()->json(['message' => 'Produto não encontrado'], 404);
+        }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Product $product)
-    {
-        //
+        return response()->json($product);
     }
 
     /**
