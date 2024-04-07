@@ -54,6 +54,12 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        if (!$product) {
+            return response()->json(['message' => 'Produto não encontrado'], 404);
+        }
+
+        $product->update(['status' => 'trash']);
+
+        return response()->json(['message' => 'Produto movido para lixeira']);
     }
 }
