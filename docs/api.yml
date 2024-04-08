@@ -1,6 +1,200 @@
 openapi: 3.0.1
 info:
-  title: DotNet Challenge 20200902
-  description: CRUD Products
-  version: '0.1'
-
+  title: Documentação da API Product Parser
+  description: API com o objetivo de dar suporte a equipe de nutricionistas da empresa Fitness Foods LC
+  version: 1.0.0
+servers:
+  - url: https://localhost
+paths:
+  /products:
+    get:
+      summary: Lista todos os produtos
+      responses:
+        '200':
+          description: Lista de produtos obtida com sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+    post:
+      summary: Cria um novo produto
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductInput'
+      responses:
+        '201':
+          description: Produto criado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+  /products/{code}:
+    get:
+      summary: Obtém detalhes de um produto específico
+      parameters:
+        - name: code
+          in: path
+          description: Código do produto a ser obtido
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Detalhes do produto obtidos com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '404':
+          description: Produto não encontrado
+          content:
+            application/json:
+              example:
+                message: Produto não encontrado
+    put:
+      summary: Atualiza um produto existente
+      parameters:
+        - name: code
+          in: path
+          description: Código do produto a ser atualizado
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductInput'
+      responses:
+        '200':
+          description: Produto atualizado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '404':
+          description: Produto não encontrado
+          content:
+            application/json:
+              example:
+                message: Produto não encontrado
+    delete:
+      summary: Remove um produto
+      parameters:
+        - name: code
+          in: path
+          description: Código do produto a ser removido
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Produto removido com sucesso
+          content:
+            application/json:
+              example:
+                message: Produto removido com sucesso
+        '404':
+          description: Produto não encontrado
+          content:
+            application/json:
+              example:
+                message: Produto não encontrado
+components:
+  schemas:
+    Product:
+      type: object
+      properties:
+        code:
+          type: string
+        status:
+          type: string
+        imported_t:
+          type: string
+        url:
+          type: string
+        creator:
+          type: string
+        product_name:
+          type: string
+        quantity:
+          type: integer
+        brands:
+          type: string
+        categories:
+          type: string
+        labels:
+          type: string
+        cities:
+          type: string
+        purchase_places:
+          type: string
+        stores:
+          type: string
+        ingredients_text:
+          type: string
+        traces:
+          type: string
+        serving_size:
+          type: string
+        serving_quantity:
+          type: string
+        nutriscore_score:
+          type: integer
+        nutriscore_grade:
+          type: string
+        main_category:
+          type: string
+        image_url:
+          type: string
+    ProductInput:
+      type: object
+      properties:
+        code:
+          type: string
+        status:
+          type: string
+        imported_t:
+          type: string
+        url:
+          type: string
+        creator:
+          type: string
+        product_name:
+          type: string
+        quantity:
+          type: integer
+        brands:
+          type: string
+        categories:
+          type: string
+        labels:
+          type: string
+        cities:
+          type: string
+        purchase_places:
+          type: string
+        stores:
+          type: string
+        ingredients_text:
+          type: string
+        traces:
+          type: string
+        serving_size:
+          type: string
+        serving_quantity:
+          type: string
+        nutriscore_score:
+          type: integer
+        nutriscore_grade:
+          type: string
+        main_category:
+          type: string
+        image_url:
+          type: string
