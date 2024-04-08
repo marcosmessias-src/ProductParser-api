@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Http\Resources\ProductResource;
 use App\Models\ErrorLog;
+use App\Models\ImportHistory;
 use App\Models\Product;
 use Exception;
 use Illuminate\Console\Command;
@@ -17,7 +18,7 @@ class ImportProducts extends Command
      *
      * @var string
      */
-    protected $signature = 'app:import-products';
+    protected $signature = 'app:import-products {--cron}';
 
     /**
      * The console command description.
@@ -115,6 +116,17 @@ class ImportProducts extends Command
             // Fechar o stream e excluir o arquivo compactado após a leitura
             gzclose($gzippedStream);
             unlink($destination);
+        }
+
+        // Registra no banco de dados se a Importação foi realizada de forma manual ou via CRON
+        if ($this->hasOption('cron')) {
+            ImportHistory::create([
+                'type' => 'cron'
+            ]);
+        }else{
+            ImportHistory::create([
+                'type' => 'manual'
+            ]);
         }
 
         echo(PHP_EOL.'Importação concluída!');
