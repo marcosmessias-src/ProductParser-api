@@ -31,6 +31,7 @@ class ImportProducts extends Command
      */
     public function handle()
     {
+        echo('Iniciando importação de produtos...');
         // Obtém a lista de atributos preenchíveis do modelo Product
         $product = new Product();
         $fillableAttributes = $product->getFillable();
@@ -47,7 +48,7 @@ class ImportProducts extends Command
             $url = 'https://challenges.coode.sh/food/data/json/' . trim($fileName);
 
             // Baixa o arquivo do link
-            echo('\\nBaixando -> '.$fileName);
+            echo(PHP_EOL.'Baixando -> '.$fileName);
             $file = file_get_contents($url);
 
             // Salva o arquivo compactado no armazenamento local
@@ -109,9 +110,13 @@ class ImportProducts extends Command
                 }
             }
 
+            echo(' -> Produtos cadastrados no banco');
+
             // Fechar o stream e excluir o arquivo compactado após a leitura
             gzclose($gzippedStream);
             unlink($destination);
         }
+
+        echo(PHP_EOL.'Importação concluída!');
     }
 }
