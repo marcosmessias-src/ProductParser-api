@@ -111,12 +111,21 @@ components:
     Product:
       type: object
       properties:
+        id:
+          type: integer
         code:
           type: string
         status:
           type: string
         imported_t:
           type: string
+          format: date-time
+        created_t:
+          type: string
+          format: date-time
+        last_modified_t:
+          type: string
+          format: date-time
         url:
           type: string
         creator:
@@ -162,6 +171,7 @@ components:
           type: string
         imported_t:
           type: string
+          format: date-time
         url:
           type: string
         creator:
