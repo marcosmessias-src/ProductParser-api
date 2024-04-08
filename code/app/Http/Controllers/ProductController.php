@@ -25,9 +25,15 @@ class ProductController extends Controller
     /**
      * Search the specified resource from storage.
      */
-    public function search(Request $request)
+    public function search($query)
     {
-        //
+        $products = Product::search($query)->get();
+
+        if (!$products) {
+            return response()->json(['message' => 'Produto não encontrado'], 404);
+        }
+
+        return response()->json($products);
     }
 
     /**

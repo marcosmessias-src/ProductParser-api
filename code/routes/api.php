@@ -10,6 +10,9 @@ Route::controller(ProductController::class)->group(function () {
         return ['1'];
     });
 
+    /* Route para pesquisar por produtos. */
+    Route::get('/products-search/{query}', 'search');
+
     /* Route para atualização de produtos. */
     Route::put('/products/{code}', 'update');
 
@@ -21,7 +24,4 @@ Route::controller(ProductController::class)->group(function () {
 
     /* Route para listar todos os produtos com paginação. */
     Route::get('/products', 'index');
-
-    /* Route para listar todos os produtos com paginação. */
-    Route::get('/products/search/{query}', 'index');
 });
