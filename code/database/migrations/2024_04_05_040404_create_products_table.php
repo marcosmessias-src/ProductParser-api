@@ -13,10 +13,11 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->integer('code');
+            $table->text('code');
             $table->enum('status', ['draft', 'trash', 'published'])->default('draft');
-            $table->timestampTz('imported_t');
-            $table->timestamps();
+            $table->timestamp('imported_t');
+            $table->timestamp('created_t');
+            $table->timestamp('last_modified_t');
             $table->text('url');
             $table->text('creator');
             $table->text('product_name');
@@ -30,8 +31,8 @@ return new class extends Migration
             $table->longText('ingredients_text');
             $table->text('traces');
             $table->text('serving_size');
-            $table->float('serving_quantity');
-            $table->integer('nutriscore_score');
+            $table->text('serving_quantity');
+            $table->text('nutriscore_score');
             $table->text('nutriscore_grade');
             $table->text('main_category');
             $table->longText('image_url');
