@@ -9,6 +9,8 @@ paths:
   /api/products:
     get:
       summary: Lista todos os produtos
+      security:
+        - BearerAuth: []
       responses:
         '200':
           description: Lista de produtos obtida com sucesso
@@ -18,24 +20,11 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Product'
-    post:
-      summary: Cria um novo produto
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ProductInput'
-      responses:
-        '201':
-          description: Produto criado com sucesso
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Product'
   /api/products/{code}:
     get:
       summary: Obtém detalhes de um produto específico
+      security:
+        - BearerAuth: []
       parameters:
         - name: code
           in: path
@@ -58,6 +47,8 @@ paths:
                 message: Produto não encontrado
     put:
       summary: Atualiza um produto existente
+      security:
+        - BearerAuth: []
       parameters:
         - name: code
           in: path
@@ -86,6 +77,8 @@ paths:
                 message: Produto não encontrado
     delete:
       summary: Remove um produto
+      security:
+        - BearerAuth: []
       parameters:
         - name: code
           in: path
