@@ -10,9 +10,16 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $perPage = $request->input('per_page', 10);
+        $products = Product::paginate($perPage);
+
+        if(!$products){
+            return response()->json(['message' => 'Nenhum produto cadastrado'], 404);
+        }
+
+        return response()->json($products);
     }
 
     /**
@@ -26,8 +33,10 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Product $product)
+    public function show($code)
     {
+        $product = Product::where('code', $code)->first();
+
         if (!$product) {
             return response()->json(['message' => 'Produto não encontrado'], 404);
         }
@@ -38,8 +47,10 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request, $code)
     {
+        $product = Product::where('code', $code)->first();
+
         if (!$product) {
             return response()->json(['message' => 'Produto não encontrado'], 404);
         }
@@ -52,8 +63,10 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Product $product)
+    public function destroy($code)
     {
+        $product = Product::where('code', $code)->first();
+
         if (!$product) {
             return response()->json(['message' => 'Produto não encontrado'], 404);
         }
