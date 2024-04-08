@@ -13,7 +13,7 @@ class ProductTest extends TestCase
     Use RefreshDatabase;
 
     /**
-     * Verifica a resposta ao acessar a rota Show de produtos sem um token de autorização
+     * Verifica a resposta ao acessar a rota Show de produtos com um token de autorização
      */
     public function test_with_authorization_token_show_route(): void
     {
