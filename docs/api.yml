@@ -4,9 +4,9 @@ info:
   description: API com o objetivo de dar suporte a equipe de nutricionistas da empresa Fitness Foods LC
   version: 1.0.0
 servers:
-  - url: https://localhost
+  - url: http://localhost
 paths:
-  /products:
+  /api/products:
     get:
       summary: Lista todos os produtos
       responses:
@@ -33,7 +33,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Product'
-  /products/{code}:
+  /api/products/{code}:
     get:
       summary: Obtém detalhes de um produto específico
       parameters:
