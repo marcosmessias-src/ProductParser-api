@@ -1,66 +1,48 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Projeto de Gerenciamento de Produtos
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Introdução
 
-## About Laravel
+Este é um projeto de API para gerenciamento de produtos, com o objetivo de dar suporte a equipe de nutricionistas da empresa Fitness Foods LC para que eles possam revisar de maneira rápida a informação nutricional dos alimentos que os usuários publicam pela aplicação móvel.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Tecnologias Utilizadas
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- Linguagem: PHP
+- Framework: Laravel
+- Biblioteca de Autenticação: Laravel Sanctum
+- Banco de dados: MySql
+- Cache: Redis
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Como Executar o Projeto
 
-## Learning Laravel
+1. Clone o repositório para o seu ambiente local.
+2. Acesse a pasta do Projeto: cd ./ProductParser-api/code/
+3. Instale as dependências do Composer usando o comando: composer install
+4. Instale as dependências NodeJs: npm install && npm run build
+5. Abra o VS Code utilizando o comando: code .
+6. Inicie o WSL: wsl
+7. Configurar alias do Sail: alias sail='sh $([ -f sail ] && echo sail || echo vendor/bin/sail)'
+8. Iniciar o container com Laravel Sail: sail up -d
+9. Execute as Migrations: sail artisan migrate
+10. Faça a primeira importação dos produtos: sail artisan app:import-products
+11. Acesse a página de cadastro para obter um token de API: http://localhost/register
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Configurar CRON para Importação de Produtos
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+Para que a importação ocorra diariamente às 02:00 (Hora escolhida para importação, devido baixo acesso de usuários), é necessário configurar um cron, exemplo abaixo:
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+CRON: * * * * * cd /path-to-your-project && php artisan schedule:run >> /dev/null 2>&1
 
-## Laravel Sponsors
+## Endpoints da API
+#### GET /api/produtos/{code}
+-  Retorna detalhes de um produto específico com base no código.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+#### PUT /api/produtos/{code}
+-  Atualiza as informações de um produto específico com base no código.
 
-### Premium Partners
+#### POST /api/produtos
+- Cria um novo produto.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+#### DELETE /api/produtos/{code}
+- Remove um produto específico com base no código fornecido.
 
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+>  This is a challenge by [Coodesh](https://coodesh.com/)
