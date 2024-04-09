@@ -13,7 +13,7 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         $perPage = $request->input('per_page', 10);
-        $products = Product::paginate($perPage);
+        $products = Product::paginate($perPage)->where('status', '!=', 'trash');
 
         if(!$products){
             return response()->json(['message' => 'Nenhum produto cadastrado'], 404);
