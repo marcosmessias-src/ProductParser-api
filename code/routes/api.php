@@ -1,15 +1,13 @@
 <?php
 
+use App\Http\Controllers\ApiDetailsController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
+/* Route para obter informações da API. */
+Route::middleware('auth:api')->get('/', [ApiDetailsController::class, 'apiDetails']);
+
 Route::controller(ProductController::class)->middleware('auth:api')->group(function () {
-
-    /* Route para obter informações da API. */
-    Route::get('/', function () {
-        return ['1'];
-    });
-
     /* Route para pesquisar por produtos. */
     Route::get('/products-search/{query}', 'search')->name('product-search');
 

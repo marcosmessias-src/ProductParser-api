@@ -6,6 +6,34 @@ info:
 servers:
   - url: http://localhost
 paths:
+  /:
+    get:
+      summary: Obter informações da API
+      description: |
+        Esta rota retorna detalhes sobre a API, incluindo a conexão com o banco de dados, o horário da última importação de produtos, o tempo de execução da máquina e a memória em uso.
+      responses:
+        '200':
+          description: Resposta bem-sucedida
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  test_db:
+                    type: boolean
+                    description: Indica se a conexão com o banco de dados foi bem-sucedida.
+                  last_cron_execution:
+                    type: string
+                    format: datetime
+                    description: Horário da última importação de produtos no formato 'd/m/Y H:i:s'.
+                  uptime:
+                    type: string
+                    description: Tempo de execução da máquina.
+                  memory_usage:
+                    type: string
+                    description: Memória em uso no formato 'X KB/MB/GB/TB'.
+      security:
+        - BearerAuth: []
   /api/products:
     get:
       summary: Lista todos os produtos
