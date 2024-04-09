@@ -33,11 +33,15 @@ Para que a importação ocorra diariamente às 02:00 (Hora escolhida para import
 CRON: * * * * * cd /path-to-your-project && php artisan schedule:run >> /dev/null 2>&1
 
 ## Endpoints da API
+
+#### GET /api/
+- Retorna detalhes da API
+
 #### GET /api/produtos/{code}
--  Retorna detalhes de um produto específico com base no código.
+- Retorna detalhes de um produto específico com base no código.
 
 #### PUT /api/produtos/{code}
--  Atualiza as informações de um produto específico com base no código.
+- Atualiza as informações de um produto específico com base no código.
 
 #### POST /api/produtos
 - Cria um novo produto.
